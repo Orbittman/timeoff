@@ -1,11 +1,13 @@
 package timeoff
 
 import (
+	"encoding/json"
 	"fmt"
-	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"io/ioutil"
 	"net/http"
 	"timeoff/authentication"
+	"timeoff/dto"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -26,15 +28,69 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func login(w http.ResponseWriter, r *http.Request) {
-	authentication.CreateAuthCookie(w, r)
+	request := dto.LoginRequest{}
+	err := parsePost(r, &request)
+
+	if err == nil {
+		if request.UserName == "tim" && request.Password == "tim" {
+			authentication.CreateAuthCookie(w, r)
+		} else {
+			http.Error(w, http.StatusText(403), 403)
+		}
+	}
+}
+
+func post(w http.ResponseWriter, r *http.Request) {
+	request := TestRequest{}
+
+	err := parsePost(r, &request)
+	if err == nil {
+		tr := TestResponse{Message: request.Message, Success: request.Flag}
+		w.Write(MapToJSON(tr))
+	} else {
+		panic(request)
+	}
+}
+
+type Request interface{}
+
+func parsePost(r *http.Request, generic Request) error {
+	body, err := ioutil.ReadAll(r.Body)
+
+	if err == nil {
+		json.Unmarshal(body, &generic)
+	}
+
+	return err
 }
 
 func init() {
 	r := mux.NewRouter()
 	getRoutes := r.Methods("GET", "POST").Subrouter()
-	getRoutes.Handle("/login", handlers.HTTPMethodOverrideHandler(handler))
+	getRoutes.HandleFunc("/login", login)
+	getRoutes.HandleFunc("/post", post)
 	getRoutes.HandleFunc("/", handler)
 	http.Handle("/", r)
 }
 
 func main() {}
+
+func MapToJSON(m interface{}) []byte {
+	j, err := json.Marshal(m)
+	if err != nil {
+		panic(err)
+	}
+
+	return j
+}
+
+type TestResponse struct {
+	Message string
+	Success bool
+}
+
+type TestRequest struct {
+	Message string
+	Value   int
+	Flag    bool
+}
