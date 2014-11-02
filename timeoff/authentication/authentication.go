@@ -10,19 +10,22 @@ import (
 	"github.com/nu7hatch/gouuid"
 	"net/http"
 	"time"
+
+	"timeoff/dto"
 )
 
-func CreateAuthCookie(w http.ResponseWriter, r *http.Request) {
+func CreateAuthCookie(w http.ResponseWriter, r *http.Request, loginRequest dto.LoginRequest) {
 	u4, err := uuid.NewV4()
 	if err != nil {
 		fmt.Println("error:", err)
 		return
 	}
 
-	SetCookieHandler(w, r, "auth_token", u4.String(), false)
+	cookie, err := setCookie(w, r, "auth_token", u4.String(), false)
+	createSession(r, cookie.Value, loginRequest)
 }
 
-func SetCookieHandler(w http.ResponseWriter, r *http.Request, name string, value string, encrypt bool) {
+func setCookie(w http.ResponseWriter, r *http.Request, name string, value string, encrypt bool) (*http.Cookie, error) {
 	var hashKey = []byte("4d167c3f54fe46918412465c00ad81a7")
 	var blockKey = []byte("3cec3deeecc74abba40333bc85507eca")
 	var s = securecookie.New(hashKey, blockKey)
@@ -30,8 +33,7 @@ func SetCookieHandler(w http.ResponseWriter, r *http.Request, name string, value
 	if encrypt {
 		cookieValue, err := s.Encode(name, value)
 		if err != nil {
-			fmt.Fprint(w, err.Error())
-			return
+			return nil, err
 		}
 
 		value = cookieValue
@@ -44,17 +46,17 @@ func SetCookieHandler(w http.ResponseWriter, r *http.Request, name string, value
 	}
 
 	http.SetCookie(w, cookie)
-	CreateSession(r, cookie.Value)
-	fmt.Fprint(w, cookie.Value)
+
+	return cookie, nil
 }
 
-func CreateSession(r *http.Request, key string) {
+func createSession(r *http.Request, key string, loginRequest dto.LoginRequest) {
 	c := appengine.NewContext(r)
 
 	var buf []byte
 	b := bytes.NewBuffer(buf)
 	enc := gob.NewEncoder(b)
-	enc.Encode(Session{Name: "timmy"})
+	enc.Encode(Session{Name: loginRequest.UserName})
 
 	item := &memcache.Item{
 		Key:        key,
@@ -80,7 +82,7 @@ func GetSession(r *http.Request, key string) (Session, error) {
 	if err == memcache.ErrCacheMiss {
 		c.Infof("item not in the cache")
 	} else if err != nil {
-		c.Errorf("error getting item: %v", err)
+		c.Errorf("error getting item: %v", key)
 	} else {
 		c.Infof("name: %s", item.Value)
 	}

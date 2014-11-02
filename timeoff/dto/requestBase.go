@@ -17,8 +17,12 @@ func (r RequestBase) ValidateHash() bool {
 }
 
 func (r RequestBase) GetHash() string {
+	return CreateHash(r.Key)
+}
+
+func CreateHash(input string) string {
 	hasher := md5.New()
-	hasher.Write([]byte(r.Key))
+	hasher.Write([]byte(input))
 
 	return base64.URLEncoding.EncodeToString(hasher.Sum(nil))
 }

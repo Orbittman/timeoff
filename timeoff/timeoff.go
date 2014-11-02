@@ -26,9 +26,11 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 func init() {
 	r := mux.NewRouter()
 	getRoutes := r.Methods("GET").Subrouter()
+	getRoutes.HandleFunc("/", secureHandler(rootHandler))
+	getRoutes.HandleFunc("/hash/{value}", services.GetHash)
+
 	postRoutes := r.Methods("POST").Subrouter()
 	postRoutes.HandleFunc("/login", services.Login)
-	getRoutes.HandleFunc("/", secureHandler(rootHandler))
 	http.Handle("/", r)
 }
 
