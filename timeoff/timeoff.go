@@ -10,7 +10,7 @@ import (
 	"timeoff/services"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func rootHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Hi there, welcome to the TimeOff app\n")
 	cookie, err := r.Cookie("auth_token")
 
@@ -25,14 +25,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func init() {
 	r := mux.NewRouter()
-	getRoutes := r.Methods("GET", "POST").Subrouter()
-	getRoutes.HandleFunc("/login", services.Login)
-	getRoutes.HandleFunc("/", secureHandler(handler))
+	getRoutes := r.Methods("GET").Subrouter()
+	postRoutes := r.Methods("POST").Subrouter()
+	postRoutes.HandleFunc("/login", services.Login)
+	getRoutes.HandleFunc("/", secureHandler(rootHandler))
 	http.Handle("/", r)
-}
-
-func (r *mux.Route) ValidApiKey() *mux.Route {
-	return r
 }
 
 func secureHandler(next http.HandlerFunc) http.HandlerFunc {

@@ -16,6 +16,7 @@ func parsePost(r *http.Request, generic dto.Requester) error {
 		json.Unmarshal(body, &generic)
 		if !generic.ValidateHash() {
 			err := errors.New("Invalid hash")
+
 			return err
 		}
 	}
