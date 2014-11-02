@@ -2,21 +2,21 @@ package services
 
 import (
 	"net/http"
+
+	"timeoff/authentication"
+	"timeoff/dto"
 )
 
-type LoginRequest struct {
-	UserName string
-	Password string
-}
-
-type LoginReply struct {
-	Message string
-	Success bool
-}
-
-type AuthService struct{}
-
-func (h *AuthService) Login(r *http.Request, request *LoginRequest, reply *LoginReply) error {
-	reply.Message = "Hello, " + request.UserName + "!"
-	return nil
+func Login(w http.ResponseWriter, r *http.Request) {
+	request := dto.LoginRequest{}
+	err := parsePost(r, &request)
+	if err == nil {
+		if request.UserName == "tim" && request.Password == "tim" {
+			authentication.CreateAuthCookie(w, r)
+		} else {
+			http.Error(w, http.StatusText(401), 401)
+		}
+	} else {
+		http.Error(w, err.Error(), 400)
+	}
 }
