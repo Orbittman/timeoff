@@ -6,8 +6,8 @@ import (
 	"github.com/gorilla/mux"
 	"net/http"
 
-	"timeoff/authentication"
-	"timeoff/services"
+	"github.com/timeoff/authentication"
+	"github.com/timeoff/services"
 )
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
@@ -31,6 +31,7 @@ func init() {
 
 	postRoutes := r.Methods("POST").Subrouter()
 	postRoutes.HandleFunc("/login", services.Login)
+	postRoutes.HandleFunc("/register", services.Register)
 	http.Handle("/", r)
 }
 

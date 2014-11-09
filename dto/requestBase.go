@@ -8,12 +8,12 @@ import (
 type RequestBase struct {
 	Key string
 
-	Hash string
+	Checksum string
 }
 
-func (r RequestBase) ValidateHash() bool {
-	hash := r.GetHash()
-	return r.Hash == hash
+func (r RequestBase) ValidateChecksum() bool {
+	checksum := r.GetHash()
+	return r.Checksum == checksum
 }
 
 func (r RequestBase) GetHash() string {

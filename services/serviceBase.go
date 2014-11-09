@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"timeoff/dto"
+	"github.com/timeoff/dto"
 )
 
 func parsePost(r *http.Request, generic dto.Requester) error {
@@ -14,7 +14,7 @@ func parsePost(r *http.Request, generic dto.Requester) error {
 
 	if err == nil {
 		json.Unmarshal(body, &generic)
-		if !generic.ValidateHash() {
+		if !generic.ValidateChecksum() {
 			err := errors.New("Invalid hash")
 
 			return err

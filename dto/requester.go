@@ -1,7 +1,7 @@
 package dto
 
 type Requester interface {
-	ValidateHash() bool
+	ValidateChecksum() bool
 
 	GetHash() string
 }

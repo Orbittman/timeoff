@@ -11,7 +11,7 @@ import (
 	"net/http"
 	"time"
 
-	"timeoff/dto"
+	"github.com/timeoff/dto"
 )
 
 func CreateAuthCookie(w http.ResponseWriter, r *http.Request, loginRequest dto.LoginRequest) {
