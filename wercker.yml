@@ -1,4 +1,4 @@
-box: wercker/golang
+box: johngb/goapp@1.9.11
 build:
   steps:
       - setup-go-workspace
