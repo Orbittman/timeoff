@@ -1,2 +1,3 @@
+box: pjvds/golang
 services:
   - hailiang/gae-go@0.0.5
