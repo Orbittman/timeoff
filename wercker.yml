@@ -1,6 +1,4 @@
 box: pjvds/golang
-services:
-  - hailiang/gae-go@0.0.5
 build:
   steps:
       - setup-go-workspace
@@ -12,5 +10,6 @@ build:
   
       - script:
           name: Build
+          cwd: program/
           code: |
               go build
