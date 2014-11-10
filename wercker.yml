@@ -2,10 +2,6 @@ box: wercker/golang
 build:
   steps:
       - setup-go-workspace
-      - script:
-          name: Clone private packages
-          code: |-
-              git clone https://github.com/Orbittman/timeoff.git $GOPATH/src/github.com/Orbittman/timeoff
   
       - script:
           name: Get dependencies
