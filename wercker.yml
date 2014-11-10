@@ -1,9 +1,9 @@
 box: wercker/golang
 build:
   steps:
-      - setup-go-workspace
       - add-ssh-key:
-	    keyname: WerckerAccess
+          keyname: werckeraccess
+      - setup-go-workspace
       - script:
           name: Get dependencies
           cwd: program/
