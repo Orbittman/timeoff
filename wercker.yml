@@ -2,15 +2,15 @@ box: pjvds/golang
 services:
   - hailiang/gae-go@0.0.5
 build:
-	steps:
-	    - setup-go-workspace
-	
-	    - script:
-	        name: Get dependencies
-	        code: |-
-	            go get
-	
-	    - script:
-	        name: Build
-	        code: |
-	            go build
+  steps:
+      - setup-go-workspace
+  
+      - script:
+          name: Get dependencies
+          code: |-
+              go get
+  
+      - script:
+          name: Build
+          code: |
+              go build
