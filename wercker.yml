@@ -5,6 +5,7 @@ build:
   
       - script:
           name: Get dependencies
+          cwd: program/
           code: |-
               go get
   
