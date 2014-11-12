@@ -2,8 +2,8 @@ box: johngb/goapp@1.9.11
 build:
   steps:
       - setup-go-workspace
-	  - add-ssh-key:
-	      keyname: TIMEOFF_KEY
+      - add-ssh-key:
+          keyname: TIMEOFF_KEY
       - script:
           name: go get
           code: |
