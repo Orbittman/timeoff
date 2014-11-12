@@ -6,6 +6,7 @@ build:
           keyname: TIMEOFF_KEY
       - script:
           name: go get
+          cwd: program/
           code: |
             cd $WERCKER_SOURCE_DIR
             go version
