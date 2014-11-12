@@ -8,9 +8,7 @@ build:
           name: go get
           cwd: program/
           code: |
-            cd $WERCKER_SOURCE_DIR
-            go version
-            go get ./...
+            go get
   
       - script:
           name: Build
