@@ -5,9 +5,9 @@ import (
 	"github.com/gorilla/mux"
 	"net/http"
 
-	"github.com/timeoff/authentication"
-	"github.com/timeoff/commands"
-	"github.com/timeoff/dto"
+	"github.com/Orbittman/timeoff/authentication"
+	"github.com/Orbittman/timeoff/commands"
+	"github.com/Orbittman/timeoff/dto"
 )
 
 func Register(w http.ResponseWriter, r *http.Request) {
