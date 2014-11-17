@@ -1,7 +1,7 @@
 package queries
 
 import (
-	"github.com/timeoff/models"
+	"github.com/Orbittman/timeoff/models"
 )
 
 type LoginQuery struct {
