@@ -6,8 +6,8 @@ import (
 	"github.com/gorilla/mux"
 	"net/http"
 
-	"github.com/timeoff/authentication"
-	"github.com/timeoff/services"
+	"github.com/Orbittman/timeoff/authentication"
+	"github.com/Orbittman/timeoff/services"
 )
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
