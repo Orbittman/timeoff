@@ -5,8 +5,8 @@ import (
 	"appengine/datastore"
 	"net/http"
 
-	"github.com/timeoff/dto"
-	"github.com/timeoff/models"
+	"github.com/Orbittman/timeoff/dto"
+	"github.com/Orbittman/timeoff/models"
 )
 
 type RegistrationCommand struct {
