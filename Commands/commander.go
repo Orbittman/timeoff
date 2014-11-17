@@ -3,7 +3,7 @@ package commands
 import (
 	"net/http"
 
-	"github.com/timeoff/dto"
+	"github.com/Orbittman/timeoff/dto"
 )
 
 type Command interface {
