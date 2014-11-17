@@ -2,8 +2,6 @@ box: ewtroan-pendo/goae@0.0.10
 build:
   steps:
       - setup-go-workspace
-      - add-ssh-key:
-          keyname: TIMEOFF_KEY
       - script:
           name: go get
           cwd: program/
