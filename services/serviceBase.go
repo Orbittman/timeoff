@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/timeoff/dto"
+	"github.com/Orbittman/timeoff/dto"
 )
 
 func parsePost(r *http.Request, generic dto.Requester) error {
