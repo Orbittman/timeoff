@@ -3,7 +3,7 @@ build:
   steps:
       - setup-go-workspace
       - script:
-          name: go get
+          name: goapp get
           cwd: program/
           code: |
             go get
