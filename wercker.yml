@@ -16,6 +16,6 @@ build:
   deploy:
     steps:
       - setup-go-workspace
-      - timeoff/deploy:
+      - pjvds/step-go-appengine-deploy:
           email: tim@trashcompactor.co.uk
           password: $APP_ENGINE_PASS
