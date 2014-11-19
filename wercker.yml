@@ -13,3 +13,9 @@ build:
           cwd: program/
           code: |
               go build
+  deploy:
+    steps:
+      - setup-go-workspace
+      - timeoff/deploy:
+          email: tim@trashcompactor.co.uk
+          password: $APP_ENGINE_PASS
