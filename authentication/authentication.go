@@ -1,8 +1,8 @@
 package authentication
 
 import (
-	"google.golang.org/appengine"
-	"google.golang.org/appengine/memcache"
+	"appengine"
+	"appengine/memcache"
 
 	"bytes"
 	"encoding/gob"
