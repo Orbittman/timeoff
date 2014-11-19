@@ -2,20 +2,20 @@ box: michilu/goapp
 build:
   steps:
       - setup-go-workspace
+          source-dir: program/
       - script:
           name: go get
-          cwd: program/
           code: |
             go get
   
       - script:
           name: Build
-          cwd: program/
           code: |
               go build
-  deploy:
-    steps:
-      - setup-go-workspace
-      - pjvds/step-go-appengine-deploy:
-          email: tim@trashcompactor.co.uk
-          password: $APP_ENGINE_PASS
+deploy:
+  steps:
+    - setup-go-workspace
+        source-dir: program/
+    - pjvds/step-go-appengine-deploy:
+        email: tim@trashcompactor.co.uk
+        password: $APP_ENGINE_PASS
