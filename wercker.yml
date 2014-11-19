@@ -10,5 +10,6 @@ build:
   
       - script:
           name: Build
+          cwd: program/
           code: |
               go build
