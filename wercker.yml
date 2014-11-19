@@ -6,7 +6,7 @@ build:
           name: goapp get
           cwd: program/
           code: |
-            go get
+            goapp get
   
       - script:
           name: Build
