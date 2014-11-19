@@ -1,4 +1,4 @@
-box: michilu/goapp@1.9.13-5
+box: michilu/goapp
 build:
   steps:
       - setup-go-workspace
