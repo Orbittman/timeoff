@@ -1,17 +1,23 @@
-box: michilu/goapp
+box: ewtroan-pendo/goae@0.0.10
 build:
   steps:
       - setup-go-workspace
           source-dir: program/
       - script:
+<<<<<<< HEAD
           name: go get
+=======
+          name: goapp get
+          cwd: program/
+>>>>>>> 578b81ca87d03ebd9e274d58de95f577518e5b73
           code: |
-            go get
+            goapp get
   
       - script:
           name: Build
           code: |
               go build
+<<<<<<< HEAD
 deploy:
   steps:
     - setup-go-workspace
@@ -19,3 +25,11 @@ deploy:
     - pjvds/step-go-appengine-deploy:
         email: tim@trashcompactor.co.uk
         password: $APP_ENGINE_PASS
+=======
+  deploy:
+    steps:
+      - setup-go-workspace
+      - pjvds/step-go-appengine-deploy:
+          email: tim@trashcompactor.co.uk
+          password: $APP_ENGINE_PASS
+>>>>>>> 578b81ca87d03ebd9e274d58de95f577518e5b73
