@@ -4,6 +4,7 @@ build:
       - setup-go-workspace
       - script:
           name: goapp get
+          cwd: program/
           code: |
             goapp get
   
