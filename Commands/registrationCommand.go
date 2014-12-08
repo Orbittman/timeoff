@@ -1,8 +1,8 @@
 package commands
 
 import (
-	"appengine"
-	"appengine/datastore"
+	"google.golang.org/appengine"
+	"google.golang.org/appengine/datastore"
 	"net/http"
 
 	"github.com/Orbittman/timeoff/dto"
