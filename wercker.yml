@@ -3,12 +3,19 @@ build:
   steps:
       - setup-go-workspace
       - script:
-          name: go get
+          name: goapp get
           cwd: program/
           code: |
-            go get
+            goapp get
   
       - script:
           name: Build
+          cwd: program/
           code: |
-              go build
+              goapp build
+  deploy:
+    steps:
+      - etre0/appengine-deploy-path-update@1.0.12:
+          email: tim@trashcompactor.co.uk
+          password: $APP_ENGINE_PASS
+          srcpath: ./program

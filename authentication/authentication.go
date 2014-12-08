@@ -3,6 +3,7 @@ package authentication
 import (
 	"appengine"
 	"appengine/memcache"
+
 	"bytes"
 	"encoding/gob"
 	"fmt"
