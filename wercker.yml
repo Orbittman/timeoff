@@ -15,7 +15,7 @@ build:
               goapp build
   deploy:
     steps:
-      - setup-go-workspace
-      - pjvds/step-go-appengine-deploy:
+      - etre0/appengine-deploy-path-update@1.0.12:
           email: tim@trashcompactor.co.uk
           password: $APP_ENGINE_PASS
+          srcpath: ./program
