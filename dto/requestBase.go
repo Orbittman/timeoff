@@ -7,7 +7,6 @@ import (
 
 type RequestBase struct {
 	Key string
-
 	Checksum string
 }
 

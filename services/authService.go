@@ -8,6 +8,7 @@ import (
 	"github.com/Orbittman/timeoff/authentication"
 	"github.com/Orbittman/timeoff/commands"
 	"github.com/Orbittman/timeoff/dto"
+	//"github.com/Orbittman/timeoff/queries"
 )
 
 func Register(w http.ResponseWriter, r *http.Request) {
@@ -24,6 +25,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	var loginRequest dto.LoginRequest
 	err := parsePost(r, &loginRequest)
 	if err == nil {
+		//var loginQuery queries.LoginQuery
 		if loginRequest.UserName == "tim" && loginRequest.Password == "tim" {
 			authentication.CreateAuthCookie(w, r, loginRequest)
 		} else {
