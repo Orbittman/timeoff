@@ -10,7 +10,7 @@ build:
   
       - script:
           name: Build
-          cwd: program/
+          cwd: /
           code: |
               goapp build
   deploy:
