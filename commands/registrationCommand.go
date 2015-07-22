@@ -4,6 +4,7 @@ import (
 	"appengine"
 	"appengine/datastore"
 	"net/http"
+	"time"
 
 	"github.com/Orbittman/timeoff/dto"
 	"github.com/Orbittman/timeoff/models"
@@ -22,6 +23,7 @@ func (command RegistrationCommand) Execute(r *http.Request, registrationRequest 
 		FirstName: bob.FirstName,
 		LastName:  bob.LastName,
 		Email:     bob.Email,
+		Registered:time.Now(),
 	}
 
 	_, err := datastore.Put(c, datastore.NewIncompleteKey(c, "user", nil), &user)

@@ -8,3 +8,7 @@ type RegistrationRequest struct {
 	LastName  string
 	Email     string
 }
+
+func (r RegistrationRequest) Key() string{
+	return r.UserName + r.FirstName + r.LastName + r.Password + r.Email
+}

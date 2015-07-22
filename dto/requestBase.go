@@ -6,8 +6,11 @@ import (
 )
 
 type RequestBase struct {
-	Key string
 	Checksum string
+}
+
+func (r RequestBase) Key() string{
+	return "testing"
 }
 
 func (r RequestBase) ValidateChecksum() bool {
@@ -16,7 +19,7 @@ func (r RequestBase) ValidateChecksum() bool {
 }
 
 func (r RequestBase) GetHash() string {
-	return CreateHash(r.Key)
+	return CreateHash(r.Key())
 }
 
 func CreateHash(input string) string {

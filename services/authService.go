@@ -8,7 +8,7 @@ import (
 	"github.com/Orbittman/timeoff/authentication"
 	"github.com/Orbittman/timeoff/commands"
 	"github.com/Orbittman/timeoff/dto"
-	//"github.com/Orbittman/timeoff/queries"
+	"github.com/Orbittman/timeoff/queries"
 )
 
 func Register(w http.ResponseWriter, r *http.Request) {
@@ -18,6 +18,8 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	if err == nil {
 		var registrationCommand commands.RegistrationCommand
 		registrationCommand.Execute(r, registrationRequest)
+	} else {
+		http.Error(w, err.Error(), 400)
 	}
 }
 
@@ -25,7 +27,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	var loginRequest dto.LoginRequest
 	err := parsePost(r, &loginRequest)
 	if err == nil {
-		//var loginQuery queries.LoginQuery
+		var loginQuery queries.LoginQuery
 		if loginRequest.UserName == "tim" && loginRequest.Password == "tim" {
 			authentication.CreateAuthCookie(w, r, loginRequest)
 		} else {
@@ -38,8 +40,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 func GetHash(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	value := vars["value"]
-
+	value := dto.CreateHash(vars["value"])
+	
 	output, _ := json.Marshal(dto.HashResponse{value})
 	w.Write(output)
 }

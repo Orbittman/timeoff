@@ -28,6 +28,8 @@ func init() {
 	getRoutes := r.Methods("GET").Subrouter()
 	getRoutes.HandleFunc("/", secureHandler(rootHandler))
 	getRoutes.HandleFunc("/hash/{value}", services.GetHash)
+	
+	postRoutes.HandleFunc("/gotchi", secureHandler(gotchiHandler))
 
 	postRoutes := r.Methods("POST").Subrouter()
 	postRoutes.HandleFunc("/login", services.Login)
