@@ -28,7 +28,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	err := parsePost(r, &loginRequest)
 	if err == nil {
 		var loginQuery queries.LoginQuery
-		if loginRequest.UserName == "tim" && loginRequest.Password == "tim" {
+		_, err := loginQuery.Execute(r, loginRequest)
+		
+		if err == nil {
 			authentication.CreateAuthCookie(w, r, loginRequest)
 		} else {
 			http.Error(w, http.StatusText(401), 401)

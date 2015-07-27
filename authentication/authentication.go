@@ -22,8 +22,7 @@ func CreateAuthCookie(w http.ResponseWriter, r *http.Request, loginRequest dto.L
 		return
 	}
 
-	cookie, err := setCookie(w, r, "os-tset", u4.String(), false)
-	//cookie, err := setCookie(w, r, "os-pset", u4.String(), false)
+	cookie, err := setCookie(w, r, "auth_token", u4.String(), false)
 	createSession(r, cookie.Value, loginRequest)
 }
 

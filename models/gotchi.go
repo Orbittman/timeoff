@@ -17,9 +17,19 @@ type Gotchi struct{
 
 func (g Gotchi) Init(){
 	// Each time it is inaitialised we need to set it's current state
-		
+	
+}
+
+func (g *Gotchi) DataKey() string {
+	return "gotchi"
 }
 
 func (g *Gotchi) Feed(f Food) {
 	
+}
+
+func CreateGotchi(name string) *Gotchi {
+	newGotchi := &Gotchi{ Name: name }
+	
+	return newGotchi
 }

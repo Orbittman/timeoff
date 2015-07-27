@@ -9,16 +9,16 @@ type RequestBase struct {
 	Checksum string
 }
 
-func (r RequestBase) Key() string{
-	return "testing"
+func (r RequestBase) GetChecksum() string {
+	return r.Checksum
 }
 
-func (r RequestBase) ValidateChecksum() bool {
-	checksum := r.GetHash()
-	return r.Checksum == checksum
+func ValidateChecksum(r Requester) bool {
+	checksum := GetHash(r)
+	return r.GetChecksum() == checksum
 }
 
-func (r RequestBase) GetHash() string {
+func GetHash(r Requester) string {
 	return CreateHash(r.Key())
 }
 

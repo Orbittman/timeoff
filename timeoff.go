@@ -7,8 +7,9 @@ import (
 	"net/http"
 
 	"github.com/Orbittman/timeoff/authentication"
-	"github.com/Orbittman/timeoff/services"
 )
+
+// Run with: "/Applications/go_appengine 2/dev_appserver.py" timeoff
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Hi there, welcome to the TimeOff app\n")
@@ -25,28 +26,8 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 func init() {
 	r := mux.NewRouter()
-	getRoutes := r.Methods("GET").Subrouter()
-	getRoutes.HandleFunc("/", secureHandler(rootHandler))
-	getRoutes.HandleFunc("/hash/{value}", services.GetHash)
-	
-	postRoutes.HandleFunc("/gotchi", secureHandler(gotchiHandler))
-
-	postRoutes := r.Methods("POST").Subrouter()
-	postRoutes.HandleFunc("/login", services.Login)
-	postRoutes.HandleFunc("/register", services.Register)
+	ConfigureRoutes(r)
 	http.Handle("/", r)
-}
-
-func secureHandler(next http.HandlerFunc) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		cookie, err := r.Cookie("auth_token")
-		if cookie == nil || err != nil {
-			fmt.Fprintf(w, "No cookie")
-			return
-		}
-
-		next(w, r)
-	}
 }
 
 func main() {}

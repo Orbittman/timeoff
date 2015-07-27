@@ -11,7 +11,7 @@ import (
 type LoginQuery struct {
 }
 
-func (l *LoginQuery) Execute(r *http.Request, loginRequest dto.LoginRequest) (models.User,error) {
+func (l *LoginQuery) Execute(r *http.Request, loginRequest dto.LoginRequest) (models.User, error) {
 	c := appengine.NewContext(r)
 
 	query := datastore.NewQuery("user").Filter("UserName =", loginRequest.UserName).KeysOnly()
