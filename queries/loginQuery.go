@@ -16,8 +16,9 @@ func (l *LoginQuery) Execute(r *http.Request, loginRequest dto.LoginRequest) (mo
 
 	query := datastore.NewQuery("user").Filter("UserName =", loginRequest.UserName).KeysOnly()
 		
-	var users models.User
-	_, err := query.GetAll(c, &users)
-
-	return users, err
+	var user models.User	
+	t := query.Run(c)
+	_, err := t.Next(&user)
+	
+	return user, err
 }

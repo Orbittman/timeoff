@@ -1,21 +1,18 @@
 package commands
 
 import (
-	"appengine"
-	"appengine/datastore"
 	"net/http"
 	"time"
 
 	"github.com/Orbittman/timeoff/dto"
 	"github.com/Orbittman/timeoff/models"
+	"github.com/Orbittman/timeoff/data"
 )
 
 type RegistrationCommand struct {
 }
 
 func (command RegistrationCommand) Execute(r *http.Request, registrationRequest dto.Requester) error {
-	c := appengine.NewContext(r)
-
 	bob := registrationRequest.(dto.RegistrationRequest)
 	user := models.User{
 		UserName:  bob.UserName,
@@ -26,6 +23,7 @@ func (command RegistrationCommand) Execute(r *http.Request, registrationRequest 
 		Registered:time.Now(),
 	}
 
-	_, err := datastore.Put(c, datastore.NewIncompleteKey(c, "user", nil), &user)
+	err := data.Put(r, &user)
+	
 	return err
 }

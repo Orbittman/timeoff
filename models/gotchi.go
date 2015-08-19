@@ -5,6 +5,7 @@ import(
 )
 
 type Gotchi struct{
+	ModelBase
 	Name string
 	Created time.Time
 	Xp int
@@ -21,7 +22,7 @@ func (g Gotchi) Init(){
 }
 
 func (g *Gotchi) DataKey() string {
-	return "gotchi"
+	return g.Name
 }
 
 func (g *Gotchi) Feed(f Food) {

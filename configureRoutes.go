@@ -10,13 +10,15 @@ import(
 
 func ConfigureRoutes(r *mux.Router){
 	getRoutes := r.Methods("GET").Subrouter()
-	getRoutes.HandleFunc("/", secureHandler(rootHandler))
+	getRoutes.HandleFunc("/", secureHandler(services.RootHandler))
 	getRoutes.HandleFunc("/hash/{value}", services.GetHash)
 	
 	postRoutes := r.Methods("POST").Subrouter()
 	postRoutes.HandleFunc("/gotchi", secureHandler(services.PostGotchiHandler))
 	postRoutes.HandleFunc("/login", services.Login)
 	postRoutes.HandleFunc("/register", services.Register)
+	
+	postRoutes.HandleFunc("/food", secureHandler(services.PostFoodHandler))
 }
 
 func apiKeyHandler(next http.HandlerFunc) http.HandlerFunc {
@@ -27,7 +29,8 @@ func apiKeyHandler(next http.HandlerFunc) http.HandlerFunc {
 			return
 		}
 		
-		context.Set(r, "X-ApiKey", header)
+		context.Set(r, "X-ApiKey", header)	
+		next(w, r)
 	}
 }
 
@@ -35,7 +38,7 @@ func secureHandler(next http.HandlerFunc) http.HandlerFunc {
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("auth_token")
 		if cookie == nil || err != nil {
-			http.Error(w, "No cookie", 401)
+			http.Error(w, "No auth cookie", 401)
 			return
 		}
 		
@@ -44,6 +47,7 @@ func secureHandler(next http.HandlerFunc) http.HandlerFunc {
 			http.Error(w, "Invalid cookie", 401)
 			return
 		}
+		
 		next(w, r)
 	}
 	

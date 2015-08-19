@@ -17,5 +17,6 @@ func (command NewGotchiCommand) Execute (r *http.Request, request dto.Requester)
 	}
 
 	err := data.Put(r, &gotchi)
+	
 	return err
 }

@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/Orbittman/timeoff/dto"
+	"github.com/Orbittman/timeoff/authentication"
 )
 
 func parsePost(r *http.Request, generic dto.Requester) error {
@@ -22,4 +23,11 @@ func parsePost(r *http.Request, generic dto.Requester) error {
 	}
 
 	return err
+}
+
+func getSession(r *http.Request) (authentication.Session, error) {
+	cookie, err := r.Cookie("auth_token")
+	s, err := authentication.GetSession(r, cookie.Value)
+	
+	return s, err
 }

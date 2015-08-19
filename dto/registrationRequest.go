@@ -7,6 +7,7 @@ type RegistrationRequest struct {
 	FirstName string
 	LastName  string
 	Email     string
+	LoginAfterRegistration bool
 }
 
 func (r RegistrationRequest) Key() string{

@@ -12,3 +12,7 @@ type User struct {
 	Email     string
 	Registered time.Time
 }
+
+func (u *User) DataKey() string {
+	return u.UserName
+}

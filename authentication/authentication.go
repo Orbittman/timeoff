@@ -81,17 +81,20 @@ func GetSession(r *http.Request, key string) (Session, error) {
 
 	item, err := memcache.Get(c, key)
 	if err == memcache.ErrCacheMiss {
-		c.Infof("item not in the cache")
+		c.Infof("Item not in the cache")
 	} else if err != nil {
-		c.Errorf("error getting item: %v", key)
-	} else {
-		c.Infof("name: %s", item.Value)
+		c.Errorf("Error getting item: %v", key)
 	}
 
 	var s Session
-	reader := bytes.NewReader(item.Value)
-	dec := gob.NewDecoder(reader)
-	err = dec.Decode(&s)
+		
+	if err == nil {
+		reader := bytes.NewReader(item.Value)
+		dec := gob.NewDecoder(reader)
+		err = dec.Decode(&s)
+		c.Infof("loaded session: %s", s.Name)
+	}
+	
 	return s, err
 }
 
